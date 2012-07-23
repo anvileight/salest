@@ -176,7 +176,8 @@ class ProductVariation(models.Model):
     @property
     def all_images(self):
         if self._images is None:
-            self._images = set(list(self.images.all()) + list(self.product.images.all()))
+            images = list(self.product.images.all()) + list(self.images.all())
+            self._images = list(set(images))
         return self._images
 
     @property
