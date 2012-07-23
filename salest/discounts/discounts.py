@@ -23,4 +23,21 @@ class CartCodeMinOrderDiscount(DiscountTypeBase):
             self.errors.append('Invalid code.')
             return False
 
-DiscountRegistr.register(CartCodeMinOrderDiscount)
+
+class CartCodeMinOrderInfinityDiscount(DiscountTypeBase):
+    validators = [CodeValidator, MinOrderValidator]
+    slug = 'cart_minorder_infinity'
+    name = 'Cart Minorder Discount Infinity'
+    target = 'cart'
+
+    def is_valid(self, code, order):
+        try:
+            self.discount = Discount.objects.get(code=code)
+            return super(CartCodeMinOrderDiscount, self).is_valid(
+                                                              self.discount,
+                                                              code=code,
+                                                              order=order)
+        except Discount.DoesNotExist:
+            self.errors.append('Invalid code.')
+            return False
+
