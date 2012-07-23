@@ -11,6 +11,7 @@ from salest.discounts.models import Discount
 from salest.core.signals import product_added_to_cart
 from salest.payments.models import OrderItem, Order
 from salest.cart.interfaces import CartInterface
+from salest.discounts.discounts import CartCodeMinOrderDiscount
 
 
 
@@ -193,6 +194,14 @@ class Cart(models.Model, CartInterface):
 
     def __unicode__(self):
         return '{0}'.format(self.is_active)
+
+    def revalidate_discounts(self):
+        discounts = self.discount.all()
+        if discounts:
+            for discount in discounts:
+                disc = CartCodeMinOrderDiscount()
+                if not disc.is_valid(discount.code, self.get_items_price()):
+                    self.discount.remove(discount)
 
 
 class CartItem(models.Model):

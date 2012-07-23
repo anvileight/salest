@@ -20,13 +20,7 @@ class CartItemForm(ModelForm):
     
     def save(self, *args, **kwargs):
         instance = super(CartItemForm, self).save(*args, **kwargs)
-        cart = instance.cart
-        discounts = instance.cart.discount.all()
-        if discounts:
-            for discount in discounts:
-                disc = CartCodeMinOrderDiscount()
-                if not disc.is_valid(discount.code, cart.get_items_price()):
-                    cart.discount.remove(discount)
+        instance.cart.revalidate_discounts()
         return instance
 
 
