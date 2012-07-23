@@ -1,0 +1,14 @@
+.project
+.pydevproject
+*.pyc
+*.log
+test_db
+local_settings.py
+.settings
+*/static/CACHE
+*.env
+var/
+*~
+salest/static/css
+.sass-cache
+reports/
