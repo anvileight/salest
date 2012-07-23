@@ -43,7 +43,6 @@ class CartItemDeleteView(DeleteView):
     success_url = reverse_lazy('cart:detail')
 
     def delete(self, request, *args, **kwargs):
-        def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         cart = self.object.cart
         self.object.delete()
