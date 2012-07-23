@@ -102,6 +102,9 @@ class Discount(models.Model):
     code = models.CharField("Discount Code", max_length=20, unique=True,
                             blank=True, null=True)
 
+    class Meta:
+        ordering = ['amount_unit']
+
     def process_discount(self, price):
         price = price
         if self.amount_unit == 'm':
@@ -111,6 +114,9 @@ class Discount(models.Model):
     def get_discount_class(self):
         discount_class = DiscountRegistr.discounts.get(self.discount_type)
         return discount_class
+
+    def __unicode__(self):
+        return '{0} {1}'.format(self.amount, self.amount_unit)
 
 
 
