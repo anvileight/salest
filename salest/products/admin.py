@@ -37,7 +37,10 @@ class ProductVariationAdmin(admin.ModelAdmin):
             obj.clone()
     clone.short_description = "Clone object"
 
-admin.site.register(models.Product)
+class ProductAdmin(admin.ModelAdmin):
+    filter_horizontal = ['images']
+
+admin.site.register(models.Product, ProductAdmin)
 admin.site.register(models.ProductVariation, ProductVariationAdmin)
 admin.site.register(models.Price)
 admin.site.register(models.ProductHistory)
