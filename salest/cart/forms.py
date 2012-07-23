@@ -26,7 +26,7 @@ class CartItemForm(ModelForm):
             for discount in discounts:
                 disc = CartCodeMinOrderDiscount()
                 if not disc.is_valid(discount.code, cart.get_items_price()):
-                    cart.discounts.remove(discount)
+                    cart.discount.remove(discount)
         return instance
 
 
