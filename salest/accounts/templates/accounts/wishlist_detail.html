@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block 'content' %}
+	<h2> Your WishList</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Product name</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		{% for product_item in object_details.get_wished_items %}
+			<tr>
+				<td class="name-node">{{ product_item.name }}</td>
+				<td class="description-node">{{ product_item.description }}</td>
+				<td class="price-node">{{ product_item.get_human_price }}</td>
+				<td>
+					<a href="{% url accounts:remove_wished_item product_item.id user.id %}"> Remove From Wishlist</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	<div>
+	</div>
+{% endblock %}

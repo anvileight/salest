@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_block %}
+<h1>You are not a member!!!</h1>
+<form method="post" action="">
+	<table>
+		{{ wizard.management_form }}
+		{% csrf_token %}
+		{{ wizard.form }}
+		<tr>
+			{% if wizard.steps.prev %}
+			<td>
+				<button class="prev_button" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans 'Prev' %}</button>
+			</td>
+			{% endif %}
+			<td>
+				<input type="submit" value="Next"/>
+			</td>
+		</tr>
+	</table>
+</form>
+{% endblock %}

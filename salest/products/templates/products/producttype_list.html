@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main_block %}
+	<h2>Catalogue</h2>
+	<p>
+		<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for product in object_list %}
+			{% cycle '' 'even' as rowcolors silent %}
+			<tr class="{{rowcolors}}"> 
+				<td class="name-node"><a href="{% url products:category_details product.slug %}">{{ product.name }}</a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	</p>
+{% endblock %}

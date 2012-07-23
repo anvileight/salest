@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block main_block %}
+	<h1>Hi {{member_type.subscription.name}} member!</h1>
+	<h2>Duration of your subscribe is: {{member_type.duration.days}} days</h2>
+{% endblock %}

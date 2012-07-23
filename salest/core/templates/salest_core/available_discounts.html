@@ -1,0 +1,12 @@
+{% if discounts %}
+	<ul>
+		<li>Available Discounts</li>
+	{% for discount in discounts %}
+		<li>
+			<p> {{ discount.description }} {{ discount.percentage }}% </p>
+			<a href="{% url shop:buy_with_discount product.id, discount.id %}">Buy with this Discount</a> | 
+			<a href="{{ discount.get_details_url }}">read more...</a>
+		</li>
+	{% endfor %}
+	</ul>
+{% endif %}

@@ -1,0 +1,16 @@
+[
+    {
+        "pk": 1,
+        "model": "shop.state",
+        "fields": {
+            "name": "Alabama"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "shop.state",
+        "fields": {
+            "name": "Alaska"
+        }
+    }
+]

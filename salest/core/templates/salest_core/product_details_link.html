@@ -1,0 +1,5 @@
+{% if has_discount %}
+	You have discount for {{ product.name }} <a href="{% url products:product_details product.id %}" title="{{ product.name }} details page">read more...</a>
+{% else %}
+	<a href="{% url products:product_details product.id %}">{{ product.name }}</a>
+{% endif %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block 'content' %}
+	{% if confirmed_user %}
+		<h3> CONGRATULATIONS </h3>
+		<div> Confirmed Sucessfully</div>
+	{% else %}
+		<h3> SORRY </h3>
+		<div> Confirmation Failed</div>
+	{% endif %}
+{% endblock %}

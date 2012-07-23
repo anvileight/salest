@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main_block %}
+	<h2> Products Category Details </h2>
+	<div>
+		{{ object_details }}
+	</div>
+	<ul>
+		{% with products=object_details.products.all %}
+		    {% if products %}
+				<li> Such products appear in this category:</li>
+			    {% for product in products %}
+			    	<li>
+			    		<a href='{{ product.get_details_url }}'>{{ product }}</a>
+			    	</li>
+			    {% endfor %}
+			{% endif %}
+		{% endwith %}
+	</ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block main_block %}
+	<form method="post" action="{{ module_success_url }}">{% csrf_token %}
+		<input type="hidden" name="order_id" value="{{order_id}}"/>
+		<tabel>
+			{{ form }}
+		</tabel>
+		<input type="submit" value="confirm" />
+	</form>
+{% endblock main_block %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load utils_tags %}
+
+{% block main_block %}
+	<h2> Product Details </h2>
+	
+	<table>
+		<tr>
+			<td class="name-node">Name</td>
+			<td class="description-node">{{ object_details.name }}</td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td>{{ object_details.description }}</td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td>{{ object_details.get_human_price }}</td>
+		</tr>
+		<tr>
+			<td>Item in stock</td>
+			<td>{{ object_details.items_in_stock }}</td>
+		</tr>
+	</table>
+	<div>
+		<a class="span-3" href="{% url shop:add_to_cart object_details.id %}">Add to cart</a>
+	</div>
+	<div>
+		{% get_discounts object_details user %}
+	</div>
+
+{% endblock %}

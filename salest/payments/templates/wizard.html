@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block main_block %}
+	{% block step_name %}
+		<h3>{{ current_class_name }}</h3>
+	{% endblock step_name %}
+	{{ wizard.form.media }}
+	<form method="post" action="">
+		{{ wizard.management_form }}
+		{% csrf_token %}
+		{% block form %}
+			{{ wizard.form.as_p }}
+		{% endblock form %}
+		<div class="purchase_nav_wrapper span-14">
+			{% if wizard.steps.prev %}
+				<button class="prev_button" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans 'Prev' %}</button>
+			{% endif %}
+			<input type="submit" value="Next"/>
+		</div>
+	</form>
+{% endblock %}

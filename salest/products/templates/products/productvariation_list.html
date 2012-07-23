@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load product_tags %}
+{% block local_scripts %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/product.js"></script>
+{% endblock %}
+{% block main_block %}
+	<h2>{{ slug|capfirst }}</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Price</th>
+				{% for option_name in option_name_list %}
+					<th>{{ option_name|capfirst }}</th>
+				{% endfor %}
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for product in product_list %}
+			{% cycle '' 'even' as rowcolors silent %}
+			<tr class="{{rowcolors}} products" id="product{{ product.id }}">
+				<td class="name-node">{{ product.name }}</td>
+				<td class="description-node">{{product.description}}</td>
+				<td class="price-node">
+					{% for variation in product.productvariation_set.all %}
+						<span class='variation_{{ variation.id }} {% if not forloop.first %} hide {% endif %}'>{{ variation.price }}</span>
+					{% endfor %}
+				</td>
+				{% with option_variation_list=object_list|option_val_filter:product %}
+					{% for option_name in option_name_list %}
+						<td>
+							<select class="variation" name='{{ option_name }}'>
+								{% for option_val in option_variation_list.0|key:option_name %}
+								<option class="{% get_similar_id option_variation_list.1 option_val %}" value='{{ option_val.value }}'>
+									{{ option_val.value }}
+								</option>
+								{% endfor %}
+							</select>
+						</td>
+					{% endfor %}
+				{% endwith %}
+				<td><a href="{% url cart:add product.id %}" class="add_to_cart"> Add to Shoping Cart </a></td>
+				{% if user.is_authenticated %}
+					<td><a href="{% url accounts:add_to_wishlist product.id user.id %}" class="add_to_cart"> Add to Wishlist </a></td>
+				{% endif %}
+				
+				<td><a href="">Ask for discount</a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<a href="{% url products:catalogue %}">Catalogue</a>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load utils_tags %}
+
+{% block main_block %}
+	<h2> Product Categories List </h2>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>Description</th>
+		</thead>
+		{% for category in object_list %}
+		<tr>
+			<td class="name-node">
+				<a href='{{ category.get_details_url }}'>{{ category }}</a>
+			</td>
+			<td class="description-node">
+				{{ category.description }}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
