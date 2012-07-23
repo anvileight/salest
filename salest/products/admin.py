@@ -29,6 +29,8 @@ class ProductVariationAdmin(admin.ModelAdmin):
     inlines = [
         OptionVariationInline,
     ]
+    
+    filter_horizontal = ['images']
 
     def clone(self, request, queryset):
         for obj in queryset:
