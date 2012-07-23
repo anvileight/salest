@@ -33,7 +33,7 @@ class CartCodeMinOrderInfinityDiscount(DiscountTypeBase):
     def is_valid(self, code, order):
         try:
             self.discount = Discount.objects.get(code=code)
-            return super(CartCodeMinOrderDiscount, self).is_valid(
+            return super(CartCodeMinOrderInfinityDiscount, self).is_valid(
                                                               self.discount,
                                                               code=code,
                                                               order=order)
