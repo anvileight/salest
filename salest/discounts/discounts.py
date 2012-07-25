@@ -13,9 +13,7 @@ class CartCodeMinOrderDiscount(DiscountTypeBase):
     def is_valid(self, code, order):
         try:
             self.discount = Discount.objects.get(code=code)
-            # TODO: is_stackle for demo only!!!
-            if not self.discount.is_stacked and self.discount.cart_set.count():
-                self.errors.append('Already used.')
+            self.errors.append('Already used.')
             return super(CartCodeMinOrderDiscount, self).is_valid(
                                                               self.discount,
                                                               code=code,
