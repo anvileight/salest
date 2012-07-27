@@ -199,12 +199,32 @@ class ProductVariation(models.Model):
 
 class OptionValue(models.Model):
     """ Values of variations (through model) """
-    value = models.CharField(max_length=250)
+    date_value = models.DateField("Date", blank=True, null=True)
+    boolean_value = models.BooleanField("Bool", default=True)
+    text_value = models.TextField(max_length=200,
+                                         default='',
+                                         blank=True)
     product_variation = models.ForeignKey(ProductVariation)
     product_type_option_name = models.ForeignKey('ProductTypeOptionName')
 
+
     def __unicode__(self):
         return self.value
+    
+    class Meta:
+        unique_together = (("product_variation", "product_type_option_name"),)
+
+    
+    def set_value(self, val):
+#        if self.product_type_option_name.type_field == 'boolean':
+#            val = bool(val)
+        setattr(self, "{0}_value".format(self.product_type_option_name.type_field
+                                         ), val)
+
+        
+    def get_value(self):
+        return getattr(self, "{0}_value".format(self.product_type_option_name.type_field))
+    value = property(get_value, set_value)
 
     def get_similar_option_value(self, option_value_list=None):
         """
@@ -243,6 +263,11 @@ class OptionName(models.Model):
 
 class ProductTypeOptionName(models.Model):
     """ Product type to option name (through model) """
+    COICES_TYPE = (
+      ('date', 'date'),
+      ('boolean', 'boolean'),
+      ('text', 'text'))
+    type_field = models.CharField(choices=COICES_TYPE, max_length=50)
     product_type = models.ForeignKey(ProductType)
     option_name = models.ForeignKey(OptionName)
     is_general = models.BooleanField(default=False)
